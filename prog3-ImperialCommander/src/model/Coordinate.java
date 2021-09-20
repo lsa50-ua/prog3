@@ -20,5 +20,6 @@ public class Coordinate {
 	public int getY() {
 		return y;
 	}
+	@hola
 	
 }
