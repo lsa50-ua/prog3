@@ -10,7 +10,7 @@ public class Coordinate {
 		this.y = y;
 		
 	}
-	public Coordinate(final Coordinate c) {
+	public Coordinate(Coordinate c) {
 		x = c.x;
 		y = c.y;
 	}
@@ -20,6 +20,23 @@ public class Coordinate {
 	public int getY() {
 		return y;
 	}
-	
+	public Coordinate add(Coordinate c) {
+		
+		Coordinate newC = null;
+		
+		newC = new Coordinate(x + c.x, y + c.y);
+		
+		return newC;
+		
+	}
+	public Coordinate  add(int x, int y) {
+		Coordinate newC = null;
+		newC = new Coordinate(this.x + x, this.y + y);
+		return newC;
+	}
+	public String to_string () {
+		
+		return "[" + x + "," + y + "]";
+	}
 	
 }
