@@ -34,7 +34,7 @@ public class Coordinate {
 		newC = new Coordinate(this.x + x, this.y + y);
 		return newC;
 	}
-	public String to_string () {
+	public String toString () {
 		
 		return "[" + x + "," + y + "]";
 	}
