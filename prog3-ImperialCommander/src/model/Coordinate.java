@@ -63,5 +63,5 @@ public class Coordinate {
 		}
 		return true;
 	}
-	s
+	r
 }
