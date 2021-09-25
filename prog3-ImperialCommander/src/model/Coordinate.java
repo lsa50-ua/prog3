@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * 
+ * @author Luis Simón Albarrán 48804855M
+ *
+ * Clase para coordenadas
+ */
 public class Coordinate {
 	
 	private int x;
