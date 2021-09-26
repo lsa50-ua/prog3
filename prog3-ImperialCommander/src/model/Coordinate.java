@@ -6,9 +6,14 @@ package model;
  *
  */
 public class Coordinate {
-	
-	private int x;	// Primera variable de la coordenada.
-	private int y;	// Segunda variable de la coordenada.
+	/**
+	 * Primera variable de la coordenada.
+	 */
+	private int x;
+	/**
+	 * Segunda variable de la coordenada.
+	 */
+	private int y;	
 	
 	/**
 	 * Crea una coordenada recibiendo dos parametros.
@@ -22,7 +27,7 @@ public class Coordinate {
 	}
 	/**
 	 * Crea una coordenada recibiendo como parámetro un objeto de la misma clase para igualarle las coordenadas al nuevo objeto.
-	 * @param c
+	 * @param c Objeto de la clase Coordinate
 	 */
 	public Coordinate(Coordinate c) {
 		x = c.x;
@@ -81,9 +86,6 @@ public class Coordinate {
 		return result;
 	}
 	@Override
-	/**
-	 * 
-	 */
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
