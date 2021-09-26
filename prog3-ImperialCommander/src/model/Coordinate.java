@@ -17,8 +17,8 @@ public class Coordinate {
 	
 	/**
 	 * Crea una coordenada recibiendo dos parametros.
-	 * @param x 
-	 * @param y
+	 * @param x Primer parametro de la coordenada
+	 * @param y Segundo parametro de la coordenada
 	 */
 	public Coordinate(int x, int y) {
 		this.x = x;
@@ -72,6 +72,7 @@ public class Coordinate {
 	}
 	/**
 	 * Permite imprimir objetos por pantalla.
+	 * @return devuelve en formato string como se va a imprimir el objeto.
 	 */
 	public String toString () {
 		
