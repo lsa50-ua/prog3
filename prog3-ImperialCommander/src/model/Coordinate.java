@@ -1,31 +1,50 @@
 package model;
 
 /**
- * 
+ * Coordinate va a representar una coordenada con dos variables x e y.
  * @author Luis Simón Albarrán 48804855M
  *
- * Clase para coordenadas
  */
 public class Coordinate {
 	
-	private int x;
-	private int y;
+	private int x;	// Primera variable de la coordenada.
+	private int y;	// Segunda variable de la coordenada.
 	
+	/**
+	 * Crea una coordenada recibiendo dos parametros.
+	 * @param x 
+	 * @param y
+	 */
 	public Coordinate(int x, int y) {
 		this.x = x;
 		this.y = y;
 		
 	}
+	/**
+	 * Crea una coordenada recibiendo como parámetro un objeto de la misma clase para igualarle las coordenadas al nuevo objeto.
+	 * @param c
+	 */
 	public Coordinate(Coordinate c) {
 		x = c.x;
 		y = c.y;
 	}
+	/**
+	 * @return devuelve la variable x de la coordenada.
+	 */
 	public int getX() {
 		return x;
 	}
+	/**
+	 * @return devuelve la variable y de la coordenada.
+	 */
 	public int getY() {
 		return y;
 	}
+	/**
+	 * Sumar las variables x e y del objeto pasado como paramaetro al objeto que invoca el metodo.
+	 * @param c objeto de la clase Coordinate
+	 * @return Devuelve un nuevo objeto de la clase Coordinate con las variables sumadas.
+	 */
 	public Coordinate add(Coordinate c) {
 		
 		Coordinate newC = null;
@@ -35,11 +54,20 @@ public class Coordinate {
 		return newC;
 		
 	}
+	/**
+	 * Sumar las variables x e y pasadas como paramaetro al objeto que invoca el metodo.
+	 * @param x cantidad a sumar a la coordenada x
+	 * @param y cantidad a sumar a la coordanada y
+	 * @return Devuelve un nuevo objeto de la clase Coordinate con las variables sumadas.
+	 */
 	public Coordinate  add(int x, int y) {
 		Coordinate newC = null;
 		newC = new Coordinate(this.x + x, this.y + y);
 		return newC;
 	}
+	/**
+	 * Permite imprimir objetos por pantalla.
+	 */
 	public String toString () {
 		
 		return "[" + x + "," + y + "]";
@@ -53,6 +81,9 @@ public class Coordinate {
 		return result;
 	}
 	@Override
+	/**
+	 * 
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -69,5 +100,6 @@ public class Coordinate {
 		}
 		return true;
 	}
+
 	
 }
