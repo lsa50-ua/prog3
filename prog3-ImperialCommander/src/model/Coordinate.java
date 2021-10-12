@@ -1,11 +1,14 @@
 package model;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * Coordinate va a representar una coordenada con dos variables x e y.
  * @author Luis Simón Albarrán 48804855M
  *
  */
-public class Coordinate {
+public class Coordinate implements Comparable<Coordinate> {
 	/**
 	 * Primera variable de la coordenada.
 	 */
@@ -103,6 +106,42 @@ public class Coordinate {
 		}
 		return true;
 	}
-
 	
-}
+	public int compareTo(Coordinate otra) {
+		int comparacion = 0;
+		if(x < otra.x) {
+			comparacion = -1;
+		}
+		else {
+			if(x > otra.x) {
+				comparacion = 1;
+			}
+			else {
+				if(y < otra.y) {
+					comparacion = -1;
+				}
+				else {
+					if(y > otra.y) {
+						comparacion = 1;
+					}
+				}
+			}
+		}
+		
+		return comparacion;
+	}
+	public Set<Coordinate> getNeightborhood() {
+		Set<Coordinate> conjunto = null;
+		conjunto = new TreeSet<Coordinate>();
+		
+		for(int nx = x - 1; nx < x + 2; nx ++) {
+			for(int ny = y - 1; ny < y + 2; ny ++) {
+				if(nx != x || ny != y) {
+					conjunto.add(new Coordinate(nx, ny));
+				}
+			}
+		}
+		
+		return conjunto;
+	}
+}	
