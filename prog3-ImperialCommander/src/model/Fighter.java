@@ -15,8 +15,8 @@ public class Fighter {
 		attack = 80;
 		shield = 80;
 		this.type = type;
-		id = nextId;
 		motherShip = mother;
+		id = nextId;
 		nextId ++;
 		
 		
@@ -57,7 +57,7 @@ public class Fighter {
 	public Coordinate getPosition() {
 		return position;
 	}
-	public Coordinate addPosition() {
+	public void addPosition() {
 		
 	}
 	public static void resetNextId() {
@@ -80,7 +80,40 @@ public class Fighter {
 	
 	@Override
 	public String toString() {
-		return "Fighter []";
+		StringBuilder sb = new StringBuilder();
+		sb.append("(" + type + " " + id + " " + getSide());
+		if(position == null) {
+			sb.append(" null");
+		}
+		else {
+			sb.append(position);
+		}
+		sb.append(" {" + velocity + "," + attack + "," + shield + "})");
+		return sb.toString();
+	}
+	public int fight(Fighter enemy) {
+		int pelea, n;
+		if(isDestroyed() || enemy.isDestroyed()) {
+			pelea = 0;
+		}
+		else {
+			while(isDestroyed() == false && enemy.isDestroyed() == false) {
+				n = RandomNumber.newRandomNumber(100);
+				if(((100 * velocity)/(velocity + enemy.velocity)) <= n) {
+					enemy.shield = enemy.shield - getDamage(n, enemy);
+				}
+				else {
+					shield = shield - enemy.getDamage(100 - n, this);
+				}
+			}
+			if(enemy.isDestroyed() == true) {
+				pelea = 1;
+			}
+			else {
+				pelea = -1;
+			}
+		}
+		return pelea;
 	}
 	@Override
 	public int hashCode() {
@@ -104,5 +137,5 @@ public class Fighter {
 		return true;
 	}
 	
-	a
+	
 }
