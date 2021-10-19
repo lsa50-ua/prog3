@@ -21,7 +21,7 @@ public class Ship {
 	}
 	public void addFighters(String fd) {
 		int cantidad;
-		String trozos[], tipo;
+		String trozos[];
 		if (fd.contains(":")) {
 			String listaCazas[] = fd.split(":");
 			for(String caza : listaCazas) {
