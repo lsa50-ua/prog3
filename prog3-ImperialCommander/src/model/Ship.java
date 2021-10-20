@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ship {
 	private String name;
@@ -37,7 +38,7 @@ public class Ship {
 	public int getLosses() {
 		return losses;
 	}
-	public ArrayList<Fighter> getFleetTest(){
+	public List<Fighter> getFleetTest(){
 		return fleet;
 	}
 	public void addFighters(String fd) {
