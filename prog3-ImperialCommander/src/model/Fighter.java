@@ -84,9 +84,9 @@ public class Fighter {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("(" + type + " " + id + " " + getSide());
+		sb.append("(" + type + " " + id + " " + getSide() + " ");
 		if(position == null) {
-			sb.append(" null");
+			sb.append("null");
 		}
 		else {
 			sb.append(position);

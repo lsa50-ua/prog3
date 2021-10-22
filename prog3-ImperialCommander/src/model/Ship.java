@@ -88,7 +88,7 @@ public class Ship {
 		}
 		else {
 			for(Fighter f: fleet) {
-				if(f.isDestroyed() == false && f.getType() == type) {
+				if(f.isDestroyed() == false && type.equals(f.getType())) {
 					firstAvailable = f;
 					break;
 				}
@@ -128,7 +128,7 @@ public class Ship {
 				tipos.add(fleet.get(i).getType());
 				contador = 0;
 				for(Fighter f: fleet) {
-					if(f.getType() == fleet.get(i).getType() && f.isDestroyed() == false) {
+					if(f.getType().equals(fleet.get(i).getType()) && f.isDestroyed() == false) {
 						contador++;
 					}
 				}
