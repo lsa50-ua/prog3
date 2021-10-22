@@ -97,6 +97,7 @@ public class Board {
 		Objects.requireNonNull(f);
 		Coordinate pos;
 		int batalla;
+		Fighter enemy;
 		pos = f.getPosition();
 		
 		if(pos != null) {
@@ -105,10 +106,10 @@ public class Board {
 				Set<Coordinate> neighbors = getNeighborhood(pos);
 				
 				for(Coordinate c: neighbors) {
-					if(f.getPosition() != null) {
+					if(f.getPosition() == null) {
 						break;
 					}
-					Fighter enemy = getFighter(c);
+					enemy = getFighter(c);
 					if(enemy != null && f.getSide() != enemy.getSide()) {
 						batalla = f.fight(enemy);
 						if(batalla == 1) {
@@ -120,7 +121,7 @@ public class Board {
 						else {
 							enemy.getMotherShip().updateResults(1);
 							f.getMotherShip().updateResults(batalla);
-							board.remove(f);
+							board.remove(f.getPosition());
 							f.setPosition(null);
 						}
 					}
