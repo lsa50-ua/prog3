@@ -109,7 +109,7 @@ public class Board {
 					if(f.getPosition() == null) {
 						break;
 					}
-					enemy = getFighter(c);
+					enemy = board.get(c);
 					if(enemy != null && f.getSide() != enemy.getSide()) {
 						batalla = f.fight(enemy);
 						if(batalla == 1) {
