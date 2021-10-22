@@ -57,8 +57,11 @@ public class Fighter {
 	public Coordinate getPosition() {
 		return position;
 	}
-	public void addPosition() {
-		
+	public void setPosition(Coordinate pos) {
+		position = pos;
+	}
+	public Ship getMotherShip() {
+		return motherShip;
 	}
 	public static void resetNextId() {
 		nextId = 1;

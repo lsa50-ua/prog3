@@ -3,6 +3,8 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Board {
 	private int size;
@@ -32,6 +34,99 @@ public class Board {
 			}
 		}
 		return eliminado;
+	}
+	/**
+	 * @return the size
+	 */
+	public int getSize() {
+		return size;
+	}
+	public boolean inside(Coordinate c) {
+		Objects.requireNonNull(c);
+		boolean dentro = false;
+		if(c != null) {
+			if(c.getX() >= 0 && c.getX() <= (size - 1) && c.getY() >= 0 &&  c.getY() <= (size - 1)) {
+				dentro = true;
+			}
+		}
+		return dentro;
+	}
+	public Set<Coordinate> getNeighborhood(Coordinate c) {
+		Objects.requireNonNull(c);
+		Set<Coordinate> neighbors = new TreeSet<Coordinate>();
+		Set<Coordinate> in = new TreeSet<Coordinate>();		
+		neighbors = c.getNeightborhood();
+		
+		for(Coordinate nueva: neighbors) {
+			if(inside(nueva) == true) {
+				in.add(nueva);
+			}
+		}
+		return in;
+	}
+	public int launch(Coordinate c, Fighter f) {
+		Objects.requireNonNull(c);
+		Objects.requireNonNull(f);
+		Fighter enemy;
+		int batalla = 0;
+		if(inside(c) == true) {
+			if(board.containsKey(c) == true) {
+				enemy = getFighter(c);
+				if(f.getSide() != enemy.getSide()) {
+					batalla = f.fight(enemy);
+					if(batalla == 1) {
+						f.getMotherShip().updateResults(batalla);
+						enemy.getMotherShip().updateResults(-1);
+						board.put(c, f);
+						enemy.setPosition(null);
+					}
+					else {
+						enemy.getMotherShip().updateResults(1);
+						f.getMotherShip().updateResults(batalla);						
+					}
+				}
+			}
+			else {
+				board.put(c, f);
+				f.setPosition(c);
+			}
+		}
+		return batalla;
+	}
+	public void patrol(Fighter f) {
+		Objects.requireNonNull(f);
+		Coordinate pos;
+		int batalla;
+		pos = f.getPosition();
+		
+		if(pos != null) {
+			Fighter fBoard = board.get(pos);
+			if(fBoard.equals(f)) {
+				Set<Coordinate> neighbors = getNeighborhood(pos);
+				
+				for(Coordinate c: neighbors) {
+					if(f.getPosition() != null) {
+						break;
+					}
+					Fighter enemy = getFighter(c);
+					if(enemy != null && f.getSide() != enemy.getSide()) {
+						batalla = f.fight(enemy);
+						if(batalla == 1) {
+							f.getMotherShip().updateResults(batalla);
+							enemy.getMotherShip().updateResults(-1);
+							board.remove(enemy.getPosition());
+							enemy.setPosition(null);
+						}
+						else {
+							enemy.getMotherShip().updateResults(1);
+							f.getMotherShip().updateResults(batalla);
+							board.remove(f);
+							f.setPosition(null);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 }
