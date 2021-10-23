@@ -130,7 +130,7 @@ public class Coordinate implements Comparable<Coordinate> {
 		
 		return comparacion;
 	}
-	public Set<Coordinate> getNeightborhood() {
+	public Set<Coordinate> getNeighborhood() {
 		Set<Coordinate> conjunto = null;
 		conjunto = new TreeSet<Coordinate>();
 		

@@ -55,7 +55,7 @@ public class Board {
 		Objects.requireNonNull(c);
 		Set<Coordinate> neighbors = new TreeSet<Coordinate>();
 		Set<Coordinate> in = new TreeSet<Coordinate>();		
-		neighbors = c.getNeightborhood();
+		neighbors = c.getNeighborhood();
 		
 		for(Coordinate nueva: neighbors) {
 			if(inside(nueva) == true) {
