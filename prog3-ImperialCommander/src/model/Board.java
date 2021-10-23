@@ -71,7 +71,7 @@ public class Board {
 		int batalla = 0;
 		if(inside(c) == true) {
 			if(board.containsKey(c) == true) {
-				enemy = getFighter(c);
+				enemy = board.get(c);
 				if(f.getSide() != enemy.getSide()) {
 					batalla = f.fight(enemy);
 					if(batalla == 1) {

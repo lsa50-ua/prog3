@@ -34,19 +34,29 @@ public class Fighter {
 		return velocity;
 	}
 	public void addVelocity(int velocity) {
-		this.velocity = velocity;
+		if(this.velocity + velocity >= 0) {
+			this.velocity += velocity;
+		}
+		else {
+			this.velocity = 0;
+		}
 	}
 	public int getAttack() {
 		return attack;
 	}
 	public void addAttack(int attack) {
-		this.attack = attack;
+		if(this.attack + attack >= 0) {
+			this.attack += attack;
+		}
+		else {
+			this.attack = 0;
+		}
 	}
 	public int getShield() {
 		return shield;
 	}
 	public void addShield(int shield) {
-		this.shield = shield;
+		this.shield += shield;
 	}
 	public String getType() {
 		return type;
