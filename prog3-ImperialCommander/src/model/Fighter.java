@@ -5,11 +5,7 @@ package model;
  * @author Luis Simón Albarrán 48804855M
  *
  */
-public class Fighter {
-	/**
-	 * tipo de caza
-	 */
-	private String type;
+public abstract class Fighter {
 	/**
 	 * velocidad del caza
 	 */
@@ -43,11 +39,10 @@ public class Fighter {
 	 * @param type asigna este valor al type del caza
 	 * @param mother asigna este valor al motherShip del caza
 	 */
-	Fighter(String type,Ship mother){
+	protected Fighter(Ship mother){
 		velocity = 100;
 		attack = 80;
 		shield = 80;
-		this.type = type;
 		motherShip = mother;
 		id = nextId;
 		nextId ++;
@@ -58,11 +53,10 @@ public class Fighter {
 	 * Constructor de copia que devuelve un caza con los mismos valores que el caza recibido
 	 * @param f caza recibido
 	 */
-	public Fighter(Fighter f) {
+	protected Fighter(Fighter f) {
 		velocity = f.velocity;
 		attack = f.attack;
 		shield = f.shield;
-		type = f.type;
 		id = f.id;
 		position = f.position;
 		motherShip = f.motherShip;
@@ -124,7 +118,7 @@ public class Fighter {
 	 * @return devuelve el tipo del caza
 	 */
 	public String getType() {
-		return type;
+		return getClass().getSimpleName();
 	}
 	/**
 	 * 
@@ -191,7 +185,7 @@ public class Fighter {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("(" + type + " " + id + " " + getSide() + " ");
+		sb.append("(" + getType() + " " + id + " " + getSide() + " ");
 		if(position == null) {
 			sb.append("null");
 		}
@@ -251,6 +245,8 @@ public class Fighter {
 		}
 		return true;
 	}
+	public abstract Fighter copy();
 	
+	public abstract char getSymbol();
 	
 }
