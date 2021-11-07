@@ -2,14 +2,37 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Esta clase permite gestionar naves imperiales o rebeldes
+ * @author Luis Simón Albarrán 48804855M
+ *
+ */
 public class Ship {
+	/**
+	 * nombre de la nave
+	 */
 	private String name;
+	/**
+	 * victorias obtenidas por los cazas de la nave
+	 */
 	private int wins;
+	/**
+	 * derrotas de los cazas de la nave
+	 */
 	private int losses;
+	/**
+	 * flota de cazas de la nave
+	 */
 	private ArrayList<Fighter> fleet;
+	/**
+	 * bando al que pertenece la nave
+	 */
 	private Side side;
-	
+	/**
+	 * Constructor que inicializa los datos de la nave 
+	 * @param name el name se inicializa con este parametro
+	 * @param side el side se inicializa con este parametro
+	 */
 	public Ship(String name, Side side){
 		this.name = name;
 		this.side = side;
@@ -17,6 +40,10 @@ public class Ship {
 		losses = 0;
 		fleet = new ArrayList<Fighter>();
 	}
+	/**
+	 * 
+	 * @return devuelve el bando al que pertenece
+	 */
 	public Side getSide() {
 		return side;
 	}
@@ -38,9 +65,17 @@ public class Ship {
 	public int getLosses() {
 		return losses;
 	}
+	/**
+	 * 
+	 * @return Devuelve el valor del atributo fleet
+	 */
 	public List<Fighter> getFleetTest(){
 		return fleet;
 	}
+	/**
+	 * Construye los cazas indicados en el string pasado como parametro
+	 * @param fd string donde indica los cazas a construir
+	 */
 	public void addFighters(String fd) {
 		int cantidad;
 		String trozos[];
@@ -66,6 +101,10 @@ public class Ship {
 		}
 		
 	}
+	/**
+	 * actualiza los valores de wins o losses en función del valor del argumento r
+	 * @param r depende de este se pondra win or loss
+	 */
 	public void updateResults(int r) {
 		if(r == 1) {
 			wins ++;
@@ -76,6 +115,11 @@ public class Ship {
 			}
 		}
 	}
+	/**
+	 * Devuelve el primer caza (no destruido) de la flota del tipo indicado
+	 * @param type tipo de caza que hay que elegir 
+	 * @return el primer caza no destruido
+	 */
 	public Fighter getFirstAvailableFighter(String type) {
 		Fighter firstAvailable = null;
 		if(type == "") {
@@ -97,6 +141,9 @@ public class Ship {
 		
 		return firstAvailable;
 	}
+	/**
+	 * Borra de la flota los cazas destruidos
+	 */
 	public void purgeFleet() {
 		for(int i = 0; i < fleet.size(); i++) {
 			if(fleet.get(i).isDestroyed()== true) {
@@ -105,6 +152,10 @@ public class Ship {
 			}
 		}
 	}
+	/**
+	 * los cazas de la flota cada uno en una linea
+	 * @return Devuelve una cadena en la que en cada línea se muestra un caza de la flota
+	 */
 	public String showFleet() {
 		String list = "";
 		for(Fighter f: fleet) {
@@ -117,6 +168,10 @@ public class Ship {
 		}
 		return list;
 	}
+	/**
+	 * Se crea una cadena
+	 * @return Devuelve una cadena con el mismo formato que admite el método addFighters con los cazas no destruidos de la flota
+	 */
 	public String myFleet() {
 		int contador;
 		StringBuilder sb = new StringBuilder();
@@ -143,6 +198,10 @@ public class Ship {
 		}
 		return sb.toString();
 	}
+	/**
+	 * muestra los datos de la nave en una cadena
+	 * @return devuelve la cadena
+	 */
 	public String toString() {
 		return "Ship [" + name + " " + wins + "/" + losses + "] " + this.myFleet();  
 	}

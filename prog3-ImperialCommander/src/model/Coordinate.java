@@ -106,7 +106,11 @@ public class Coordinate implements Comparable<Coordinate> {
 		}
 		return true;
 	}
-	
+	/**
+	 * Compara dos coordenadas
+	 * @param otra coordenada que sirve para comprobarla con la implicita
+	 * @return devuelve un int con el resultado de la comparacion
+	 */
 	public int compareTo(Coordinate otra) {
 		int comparacion = 0;
 		if(x < otra.x) {
@@ -130,6 +134,10 @@ public class Coordinate implements Comparable<Coordinate> {
 		
 		return comparacion;
 	}
+	/**
+	 * Almacena en un TreeSet y lo devuelve con las coordenadas vecinas de la implicita
+	 * @return devuelve un TreeSet con las coordenadas de alrededor de la implicita
+	 */
 	public Set<Coordinate> getNeighborhood() {
 		Set<Coordinate> conjunto = null;
 		conjunto = new TreeSet<Coordinate>();
