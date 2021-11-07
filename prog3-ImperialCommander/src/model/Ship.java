@@ -85,7 +85,7 @@ public class Ship {
 				trozos = caza.split("/");
 				cantidad = Integer.parseInt(trozos[0]);
 				for(int i = 0; i < cantidad; i++) {
-					fleet.add(new Fighter(trozos[1], this));
+					fleet.add(FighterFactory.createFighter(trozos[1], this));
 				}
 				
 			}
@@ -95,7 +95,7 @@ public class Ship {
 				trozos = fd.split("/");
 				cantidad = Integer.parseInt(trozos[0]);
 				for(int i = 0; i < cantidad; i++) {
-					fleet.add(new Fighter(trozos[1], this));
+					fleet.add(FighterFactory.createFighter(trozos[1], this));
 				}
 			}
 		}
