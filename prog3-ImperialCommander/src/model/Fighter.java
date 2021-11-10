@@ -1,5 +1,7 @@
 package model;
 
+import model.exceptions.FighterIsDestroyedException;
+
 /**
  * Fighter va a representar a un luchador con diferentes atributos
  * @author Luis Simón Albarrán 48804855M
@@ -200,28 +202,31 @@ public abstract class Fighter {
 	 * @param enemy caza enemigo
 	 * @return devuelve 1 si ha ganado el caza o -1 si ha ganado el enemigo
 	 */
-	public int fight(Fighter enemy) {
+	public int fight(Fighter enemy) throws FighterIsDestroyedException{
 		int pelea, n;
-		if(isDestroyed() || enemy.isDestroyed()) {
-			pelea = 0;
+		if(enemy.isDestroyed()) {
+			throw new FighterIsDestroyedException(enemy);
 		}
-		else {
-			while(isDestroyed() == false && enemy.isDestroyed() == false) {
-				n = RandomNumber.newRandomNumber(100);
-				if(((100 * velocity)/(velocity + enemy.velocity)) <= n) {
-					enemy.shield = enemy.shield - getDamage(n, enemy);
-				}
-				else {
-					shield = shield - enemy.getDamage(100 - n, this);
-				}
-			}
-			if(enemy.isDestroyed() == true) {
-				pelea = 1;
+		if(isDestroyed()) {
+			throw new FighterIsDestroyedException(this);
+		}	
+
+		while(isDestroyed() == false && enemy.isDestroyed() == false) {
+			n = RandomNumber.newRandomNumber(100);
+			if(((100 * velocity)/(velocity + enemy.velocity)) <= n) {
+				enemy.shield = enemy.shield - getDamage(n, enemy);
 			}
 			else {
-				pelea = -1;
+				shield = shield - enemy.getDamage(100 - n, this);
 			}
 		}
+		if(enemy.isDestroyed() == true) {
+			pelea = 1;
+		}
+		else {
+			pelea = -1;
+		}
+
 		return pelea;
 	}
 	@Override

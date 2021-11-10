@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.exceptions.NoFighterAvailableException;
 /**
  * Esta clase permite gestionar naves imperiales o rebeldes
  * @author Luis Simón Albarrán 48804855M
@@ -120,7 +121,7 @@ public class Ship {
 	 * @param type tipo de caza que hay que elegir 
 	 * @return el primer caza no destruido
 	 */
-	public Fighter getFirstAvailableFighter(String type) {
+	public Fighter getFirstAvailableFighter(String type) throws NoFighterAvailableException{
 		Fighter firstAvailable = null;
 		if(type == "") {
 			for(Fighter f: fleet) {
@@ -137,6 +138,9 @@ public class Ship {
 					break;
 				}
 			}
+		}
+		if(firstAvailable == null) {
+			throw new NoFighterAvailableException(type);
 		}
 		
 		return firstAvailable;
