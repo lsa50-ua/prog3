@@ -22,7 +22,7 @@ public class FighterAlreadyInBoardException extends Exception{
 	}
 	/**
 	 * Mensaje de Error
-	 * @param devuelve el mensaje.
+	 * @return devuelve el mensaje.
 	 */
 	public String getMessage() {
 		return "ERROR: Este caza ya tiene posición asignada " + f;

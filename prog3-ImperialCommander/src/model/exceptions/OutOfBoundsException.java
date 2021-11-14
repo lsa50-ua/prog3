@@ -14,7 +14,7 @@ public class OutOfBoundsException extends Exception{
 	private Coordinate position;
 	/**
 	 * Constructor de la clase
-	 * @param f fighter
+	 * @param pos posicion
 	 */
 	public OutOfBoundsException(Coordinate pos) {
 		super();
@@ -22,7 +22,7 @@ public class OutOfBoundsException extends Exception{
 	}
 	/**
 	 * Mensaje de Error
-	 * @param devuelve el mensaje.
+	 * @return devuelve el mensaje.
 	 */
 	public String getMessage() {
 		return "ERROR: La coordenada esta fuera de los limites del tablero " + position;

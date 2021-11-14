@@ -22,7 +22,7 @@ public class FighterNotInBoardException extends Exception{
 	}
 	/**
 	 * Mensaje de Error
-	 * @param devuelve el mensaje.
+	 * @return devuelve el mensaje.
 	 */
 	public String getMessage() {
 		return "ERROR: El fighter no esta en el tablero " + f;

@@ -38,7 +38,6 @@ public abstract class Fighter {
 	private static int nextId = 1;
 	/**
 	 * Constructor que inicializa un caza, asignando un valor de 100 a la velocidad, 80 al ataque y 80 al escudo
-	 * @param type asigna este valor al type del caza
 	 * @param mother asigna este valor al motherShip del caza
 	 */
 	protected Fighter(Ship mother){
@@ -169,6 +168,7 @@ public abstract class Fighter {
 	}
 	/**
 	 * Devuelve el bando del caza
+	 * @return devuelve el bando
 	 */
 	public Side getSide() {
 		return motherShip.getSide();
@@ -199,6 +199,7 @@ public abstract class Fighter {
 	}
 	/**
 	 * método que simula la lucha entre dos cazas
+	 * @throws FighterIsDestroyedException ya esta destruido
 	 * @param enemy caza enemigo
 	 * @return devuelve 1 si ha ganado el caza o -1 si ha ganado el enemigo
 	 */

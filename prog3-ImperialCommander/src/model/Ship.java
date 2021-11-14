@@ -119,6 +119,7 @@ public class Ship {
 	/**
 	 * Devuelve el primer caza (no destruido) de la flota del tipo indicado
 	 * @param type tipo de caza que hay que elegir 
+	 * @throws NoFighterAvailableException fighter no disponible
 	 * @return el primer caza no destruido
 	 */
 	public Fighter getFirstAvailableFighter(String type) throws NoFighterAvailableException{

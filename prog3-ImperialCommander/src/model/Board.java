@@ -28,6 +28,7 @@ public class Board {
 	/**
 	 * Constructor que inicializa los datos del tablero
 	 * @param size indica el tamaño con el que se inicializa el tablero
+	 * @throws InvalidSizeException invalidSize
 	 */
 	public Board(int size) throws InvalidSizeException{
 		if(size < 5) {
@@ -52,6 +53,7 @@ public class Board {
 	/**
 	 * Elimina el fighter que se indica
 	 * @param f fighter indicado 
+	 * @throws FighterNotInBoardException fighter no esta en el tablero
 	 * @return devuelve true or false en funcion de si lo consigue eliminar
 	 */
 	public boolean removeFighter(Fighter f) throws FighterNotInBoardException {
@@ -98,6 +100,7 @@ public class Board {
 	/**
 	 * 
 	 * @param c Coordenada de la que hay que devolver la posiciones vecinas
+	 * @throws OutOfBoundsException fuera de los limites
 	 * @return Devuelve un TreeSet con las posiciones vecinas a la coordenada c que estén dentro del tablero
 	 */
 	public Set<Coordinate> getNeighborhood(Coordinate c) throws OutOfBoundsException{
@@ -118,6 +121,8 @@ public class Board {
 	}
 	/**
 	 * Intenta colocar un caza en una posición del tablero, si hay otro enemigo luchan entre si
+	 * @throws FighterAlreadyInBoardException ya esta en el tablero
+	 * @throws OutOfBoundsException fuera de los limites
 	 * @param c coordenada a la que es lanzado el caza
 	 * @param f	fighter que es lanzado
 	 * @return devuelve el resultado de la batalla o 0 en cualquier otro caso
@@ -167,6 +172,7 @@ public class Board {
 	/**
 	 * El caza (si está en el tablero) recorre su vecindad y pelea si es necesario
 	 * @param f caza indicado
+	 * @throws FighterNotInBoardException no esta en el tablero
 	 */
 	public void patrol(Fighter f) throws FighterNotInBoardException{
 		Objects.requireNonNull(f);

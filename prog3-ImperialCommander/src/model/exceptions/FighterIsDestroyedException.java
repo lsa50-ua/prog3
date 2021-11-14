@@ -21,7 +21,7 @@ public class FighterIsDestroyedException extends Exception {
 	}
 	/**
 	 * Mensaje de Error
-	 * @param devuelve el mensaje.
+	 * @return devuelve el mensaje.
 	 */
 	public String getMessage() {
 		return "ERROR: hay un caza destruido " + f;

@@ -13,7 +13,7 @@ public class NoFighterAvailableException extends Exception{
 	private String type;
 	/**
 	 * Constructor de la clase
-	 * @param f fighter
+	 * @param t tipo
 	 */
 	public NoFighterAvailableException(String t) {
 		super();
@@ -21,7 +21,7 @@ public class NoFighterAvailableException extends Exception{
 	}
 	/**
 	 * Mensaje de Error
-	 * @param devuelve el mensaje.
+	 * @return devuelve el mensaje.
 	 */
 	public String getMessage() {
 		return "ERROR: No se ha encontrado ningun caza disponible del tipo indicado " + type;

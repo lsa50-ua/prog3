@@ -20,7 +20,7 @@ public class InvalidSizeException extends Exception {
 	}
 	/**
 	 * Mensaje de Error
-	 * @param devuelve el mensaje.
+	 * @return devuelve el mensaje.
 	 */
 	public String getMessage() {
 		return "ERROR: El tamaño es menor que 5, tamaño: " + size;
