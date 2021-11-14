@@ -6,8 +6,18 @@ import model.fighters.TIEFighter;
 import model.fighters.TIEInterceptor;
 import model.fighters.XWing;
 import model.fighters.YWing;
-
+/**
+ * Clase que representa la fabrica de cazas
+ * @author Luis Simón Albarrán 48804855M
+ *
+ */
 public class FighterFactory {
+	/**
+	 * Metodo para crear cazas
+	 * @param type Indica el tipo
+	 * @param mother Indica la nave
+	 * @return devuelve el caza del tipo especificado y lo mete en la nave especificada.
+	 */
 	public static Fighter createFighter(String type, Ship mother) {
 		Fighter f = null;
 		switch(type) {

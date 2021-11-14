@@ -250,8 +250,15 @@ public abstract class Fighter {
 		}
 		return true;
 	}
+	/**
+	 * Metodo copy
+	 * @return devuelve un objeto de la subclase obtenido del constructor copia.
+	 */
 	public abstract Fighter copy();
-	
+	/**
+	 * metodo que devuelve el simbolo
+	 * @return devuelve el simbolo del tipo de nave
+	 */
 	public abstract char getSymbol();
 	
 }
