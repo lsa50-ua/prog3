@@ -24,7 +24,7 @@ public class Board {
 	/**
 	 * mapa para almacenar los cazas en posiciones del tablero
 	 */
-	private Map<Coordinate, Fighter> board;
+	protected Map<Coordinate, Fighter> board;
 	/**
 	 * Constructor que inicializa los datos del tablero
 	 * @param size indica el tamaño con el que se inicializa el tablero
@@ -185,6 +185,11 @@ public class Board {
 		if(pos == null) {
 			throw new FighterNotInBoardException(f);
 		}
+		try {
+			neighbors = getNeighborhood(pos);
+		} catch(OutOfBoundsException out) {
+			throw new RuntimeException(out);
+		}
 		if(board.get(pos) == null) {
 			throw new FighterNotInBoardException(f);
 		}
@@ -194,11 +199,7 @@ public class Board {
 		if(pos != null) {
 			Fighter fBoard = board.get(pos);
 			if(fBoard.equals(f)) {
-				try {
-					neighbors = getNeighborhood(pos);
-				} catch(OutOfBoundsException out) {
-					throw new RuntimeException(out);
-				}
+				
 				for(Coordinate c: neighbors) {
 					if(f.getPosition() == null) {
 						break;

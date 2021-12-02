@@ -24,7 +24,7 @@ public class Ship {
 	/**
 	 * flota de cazas de la nave
 	 */
-	private ArrayList<Fighter> fleet;
+	protected ArrayList<Fighter> fleet;
 	/**
 	 * bando al que pertenece la nave
 	 */
@@ -79,6 +79,7 @@ public class Ship {
 	 */
 	public void addFighters(String fd) {
 		int cantidad;
+		Fighter f;
 		String trozos[];
 		if (fd.contains(":")) {
 			String listaCazas[] = fd.split(":");
@@ -86,7 +87,10 @@ public class Ship {
 				trozos = caza.split("/");
 				cantidad = Integer.parseInt(trozos[0]);
 				for(int i = 0; i < cantidad; i++) {
-					fleet.add(FighterFactory.createFighter(trozos[1], this));
+					f = FighterFactory.createFighter(trozos[1], this);
+					if(f != null) {
+						fleet.add(f);
+					}
 				}
 				
 			}
@@ -96,7 +100,10 @@ public class Ship {
 				trozos = fd.split("/");
 				cantidad = Integer.parseInt(trozos[0]);
 				for(int i = 0; i < cantidad; i++) {
-					fleet.add(FighterFactory.createFighter(trozos[1], this));
+					f = FighterFactory.createFighter(trozos[1], this);
+					if(f != null) {
+						fleet.add(f);
+					}
 				}
 			}
 		}
@@ -126,7 +133,7 @@ public class Ship {
 		Fighter firstAvailable = null;
 		if(type == "") {
 			for(Fighter f: fleet) {
-				if(f.isDestroyed() == false) {
+				if(f.isDestroyed() == false && f.getPosition() == null) {
 					firstAvailable = f;
 					break;
 				}
@@ -134,7 +141,7 @@ public class Ship {
 		}
 		else {
 			for(Fighter f: fleet) {
-				if(f.isDestroyed() == false && type.equals(f.getType())) {
+				if(f.isDestroyed() == false && type.equals(f.getType()) && f.getPosition() == null) {
 					firstAvailable = f;
 					break;
 				}
