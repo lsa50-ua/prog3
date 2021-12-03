@@ -26,7 +26,35 @@ public class GameBoard extends Board {
 		return cuantos;
 	}
 	public String toString() {
-		
+		String tablero = "  ";
+		Coordinate c;
+		Fighter f;
+		int i, fila, columna;
+		for(i = 0; i < getSize(); i++) {
+			tablero += i;
+		}
+		tablero += "\n  ";
+		for(i = 0; i < getSize(); i++) {
+			tablero += "-";
+		}
+		tablero += "\n";
+		for(fila = 0; fila < getSize(); fila++) {
+			tablero += fila + "|";
+			for(columna = 0; columna < getSize(); columna++) {
+				c = new Coordinate(columna, fila);
+				f = board.get(c);
+				if (f != null) {
+					tablero += f.getSymbol();
+				}
+				else {
+					tablero += " ";
+				}
+			}
+			if(fila != getSize() - 1) {
+				tablero += "\n";
+			}
+		}
+		return tablero;
 	}
 	
 }
