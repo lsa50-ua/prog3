@@ -75,7 +75,17 @@ public class GameShip extends Ship{
 	}
 	public void improveFighter(int id, int qty, Board b) throws WrongFighterIdException {
 		Fighter f = getFighter(id);
-		if(b.inside(f.getPosition()))
+		try {
+			b.removeFighter(f);
+		}catch(FighterNotInBoardException ex) {}
+		if(qty % 2 == 0) {
+			f.addAttack(qty/2);
+			f.addShield(qty/2);
+		}
+		else {
+			f.addAttack(qty/2);
+			f.addShield((qty/2) + 1);
+		}
 	}
 	
 }
