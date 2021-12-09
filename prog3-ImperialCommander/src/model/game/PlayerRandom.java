@@ -1,12 +1,12 @@
 package model.game;
 
 import java.util.List;
-import java.util.Objects;
 
 import model.Coordinate;
 import model.RandomNumber;
 import model.Side;
 import model.exceptions.*;
+import model.game.exceptions.WrongFighterIdException;
 
 public class PlayerRandom implements IPlayer{
 	private int numFighters;
@@ -93,29 +93,38 @@ public class PlayerRandom implements IPlayer{
 			}
 		}
 		if(ids.isEmpty() == false) {
-			try {
-				seleccion = RandomNumber.newRandomNumber(ids.size());
-				if(r <= 24) {
+			
+			seleccion = RandomNumber.newRandomNumber(ids.size());
+			if(r <= 24) {
+				
+				try {
 					ship.patrol(seleccion, board);
+				}catch(FighterNotInBoardException | WrongFighterIdException e)
+					{throw new RuntimeException(e);}
+				
+			}
+			else {
+				if(r <= 84) {
+					x = RandomNumber.newRandomNumber(board.getSize());
+					y = RandomNumber.newRandomNumber(board.getSize());
+					
+					try {
+					ship.launch(seleccion, new Coordinate(x, y), board);
+					}catch(FighterAlreadyInBoardException | OutOfBoundsException | WrongFighterIdException e) 
+					{throw new RuntimeException(e);}
+					
 				}
 				else {
-					if(r <= 84) {
-						x = RandomNumber.newRandomNumber(board.getSize());
-						y = RandomNumber.newRandomNumber(board.getSize());
-						ship.launch(seleccion, new Coordinate(x, y), board);
-					}
-					else {
-						ship.improveFighter(seleccion, r, board);	
-					}
+					
+					try {
+					ship.improveFighter(seleccion, r, board);
+					}catch(WrongFighterIdException e) {throw new RuntimeException(e);}
+					
 				}
 			}	
-			catch(OutOfBoundsException | 
-					FighterNotInBoardException | 
-					FighterAlreadyInBoardException | 
-					WrongFighterIdException e) {
-				throw new RuntimeException(e);
-			}
-			
+		}
+		else {
+			System.out.println("ERROR: cadena de ids vacia");
 		}
 		return continuar;
 	}
