@@ -1,7 +1,12 @@
 package model.game;
 
+import java.util.List;
+import java.util.Objects;
+
+import model.Coordinate;
 import model.RandomNumber;
 import model.Side;
+import model.exceptions.*;
 
 public class PlayerRandom implements IPlayer{
 	private int numFighters;
@@ -55,22 +60,63 @@ public class PlayerRandom implements IPlayer{
 	}
 	@Override
 	public boolean isFleetDestroyed() {
-		// TODO Auto-generated method stub
-		return false;
+		return ship.isFleetDestroyed();
 	}
 	@Override
 	public String showShip() {
-		// TODO Auto-generated method stub
-		return null;
+		return ship + "\n" + ship.showFleet();
 	}
 	@Override
 	public void purgeFleet() {
-		// TODO Auto-generated method stub
-		
+		ship.purgeFleet();
 	}
 	@Override
 	public boolean nextPlay() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean continuar = true;
+		int r, seleccion, x, y;
+		List<Integer> ids = null;
+		r = RandomNumber.newRandomNumber(100);
+		if(r == 99) {
+			continuar = false;
+		}
+		else {
+			if(r <= 24) {
+				ids = ship.getFightersId("board");
+			}
+			else {
+				if(r <= 84) {
+					ids = ship.getFightersId("ship");
+				}
+				else {
+					ids = ship.getFightersId("");
+				}
+			}
+		}
+		if(ids.isEmpty() == false) {
+			try {
+				seleccion = RandomNumber.newRandomNumber(ids.size());
+				if(r <= 24) {
+					ship.patrol(seleccion, board);
+				}
+				else {
+					if(r <= 84) {
+						x = RandomNumber.newRandomNumber(board.getSize());
+						y = RandomNumber.newRandomNumber(board.getSize());
+						ship.launch(seleccion, new Coordinate(x, y), board);
+					}
+					else {
+						ship.improveFighter(seleccion, r, board);	
+					}
+				}
+			}	
+			catch(OutOfBoundsException | 
+					FighterNotInBoardException | 
+					FighterAlreadyInBoardException | 
+					WrongFighterIdException e) {
+				throw new RuntimeException(e);
+			}
+			
+		}
+		return continuar;
 	}
 }
