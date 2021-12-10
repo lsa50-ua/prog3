@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 import model.Side;
+import model.exceptions.FighterNotInBoardException;
 import model.game.exceptions.WrongFighterIdException;
 
 public class PlayerFile implements IPlayer {
@@ -55,7 +56,7 @@ public class PlayerFile implements IPlayer {
 	public boolean nextPlay() {
 		String linea = null;
 		String [] trozos;
-		int qty, id;
+		int qty, id, x, y;
 		boolean continuar = true;
 		try {
 			linea = br.readLine();
@@ -63,22 +64,48 @@ public class PlayerFile implements IPlayer {
 		if(linea == "exit") {
 			continuar = false;
 		}
-		else if(linea.contains("improve")) {
+		else {
 			trozos = linea.split(" ");
-			if(trozos.length != 3) {
-				System.out.println("ERROR: linea leida incorrecta");
+			if(trozos[0] == "improve") {
+				
+				if(trozos.length != 3) {
+					System.out.println("ERROR: linea leida incorrecta");
+				}
+				else {
+					id = Integer.parseInt(trozos[1]);
+					qty = Integer.parseInt(trozos[2]);
+					if(qty < 100) {
+						try {
+							ship.improveFighter(id, qty, board);
+						}catch(WrongFighterIdException e) {System.out.println(e);}
+						
+					}
+					else {
+						System.out.println("ERROR: qty no es menor que 100");
+					}
+				}
 			}
-			else {
-				id = Integer.parseInt(trozos[1]);
-				qty = Integer.parseInt(trozos[2]);
-				if(qty < 100) {
+			if(trozos[0] == "patrol") {
+				if(trozos.length == 2) {
+					id = Integer.parseInt(trozos[1]);
 					try {
-						ship.improveFighter(id, qty, board);
-					}catch(WrongFighterIdException e) {System.out.println(e);}
+						ship.patrol(id, board);
+					}catch(FighterNotInBoardException | WrongFighterIdException e) {System.out.println(e);}
+				}
+				else {
+					System.out.println("ERROR: linea leida incorrecta");
+				}
+			}
+			if(trozos[0] == "launch") {
+				if(trozos.length == 2) {
+					x = Integer.parseInt(trozos[1]);
+					y = Integer.parseInt(trozos[2]);
+				}
+				if(trozos.length == 3) {
 					
 				}
 				else {
-					System.out.println("ERROR: qty no es menor que 100");
+					System.out.println("ERROR: linea leida incorrecta");
 				}
 			}
 		}
