@@ -3,8 +3,12 @@ package model.game;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import model.Coordinate;
 import model.Side;
+import model.exceptions.FighterAlreadyInBoardException;
 import model.exceptions.FighterNotInBoardException;
+import model.exceptions.NoFighterAvailableException;
+import model.exceptions.OutOfBoundsException;
 import model.game.exceptions.WrongFighterIdException;
 
 public class PlayerFile implements IPlayer {
@@ -97,16 +101,32 @@ public class PlayerFile implements IPlayer {
 				}
 			}
 			if(trozos[0] == "launch") {
-				if(trozos.length == 2) {
-					x = Integer.parseInt(trozos[1]);
-					y = Integer.parseInt(trozos[2]);
+				try {
+					if(trozos.length == 3) {
+						x = Integer.parseInt(trozos[1]);
+						y = Integer.parseInt(trozos[2]);
+						board.launch(new Coordinate(x, y), ship.getFirstAvailableFighter(""));
+					}
+					if(trozos.length == 4) {
+						x = Integer.parseInt(trozos[1]);
+						y = Integer.parseInt(trozos[2]);
+						try {
+							id = Integer.parseInt(trozos[3]);
+							ship.launch(id, new Coordinate(x, y), board);
+						}catch(NumberFormatException e) {
+							board.launch(new Coordinate(x,y), ship.getFirstAvailableFighter(trozos[3]));
+						}
+					}
+					else {
+						System.out.println("ERROR: linea leida incorrecta");
+					}
+						
+				}catch(NoFighterAvailableException | FighterAlreadyInBoardException | OutOfBoundsException | WrongFighterIdException ex) {
+						System.out.println(ex);
 				}
-				if(trozos.length == 3) {
-					
-				}
-				else {
-					System.out.println("ERROR: linea leida incorrecta");
-				}
+			}
+			else {
+				System.out.println("ERROR: " + trozos[0] + " no coincide");
 			}
 		}
 		
