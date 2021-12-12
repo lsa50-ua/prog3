@@ -4,13 +4,34 @@ import java.util.Objects;
 
 import model.Side;
 import model.exceptions.InvalidSizeException;
-
+/**
+ * Esta clase gestiona una partida entre dos jugadores, uno imperial y otro rebelde
+ * @author Luis Simón Albarrán 48804855M
+ *
+ */
 public class Game {
+	/**
+	 * constante tamaño del tablero
+	 */
 	private final static int BOARD_SIZE = 10;
+	/**
+	 * jugador rebelde
+	 */
 	private IPlayer rebel;
+	/**
+	 * jugador imperial
+	 */
 	private IPlayer imperial;
+	/**
+	 * tablero del juego
+	 */
 	private GameBoard board;
-	
+	/**
+	 * Constructor que guarda en sus atributos los jugadores que se le pasan como argumentos,
+	 * crea un tablero de tamaño BOARD_SIZE y se lo asigna a los jugadores
+	 * @param imperial jugador imperial
+	 * @param rebel jugador rebel
+	 */
 	public Game(IPlayer imperial, IPlayer rebel) {
 		Objects.requireNonNull(imperial);
 		Objects.requireNonNull(rebel);
@@ -22,9 +43,17 @@ public class Game {
 			rebel.setBoard(board);
 		}catch(InvalidSizeException e) {throw new RuntimeException(e);}
 	}
+	/**
+	 * Devuelve el tablero
+	 * @return tablero
+	 */
 	public GameBoard getGameBoard() {
 		return board;
 	}
+	/**
+	 * metodo para jugar 
+	 * @return el bando ganador
+	 */
 	public Side play() {
 		Side winner = null;
 		boolean continuar = true;
@@ -61,14 +90,16 @@ public class Game {
 			}
 			
 		}while(continuar == true && imperial.isFleetDestroyed() == false && rebel.isFleetDestroyed() == false);
+		
+		imperial.purgeFleet();
+		rebel.purgeFleet();
 		if(continuar == true) {
-			imperial.purgeFleet();
-			rebel.purgeFleet();
-			if(rebel.isFleetDestroyed()) {
-				winner = Side.IMPERIAL;
+
+			if(imperial.isFleetDestroyed()) {
+				winner = Side.REBEL;
 			}
 			else {
-				winner = Side.REBEL;
+				winner = Side.IMPERIAL;
 			}
 		}
 		return winner;

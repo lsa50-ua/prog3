@@ -8,12 +8,30 @@ import model.RandomNumber;
 import model.Side;
 import model.exceptions.*;
 import model.game.exceptions.WrongFighterIdException;
-
+/**
+ * Es una clase para simular un jugador que juega al azar.
+ * @author Luis Simón Albarrán 48804855M
+ *
+ */
 public class PlayerRandom implements IPlayer{
+	/**
+	 * numero de luchadores
+	 */
 	private int numFighters;
+	/**
+	 * nave del jugador
+	 */
 	private GameShip ship;
+	/**
+	 * tablero del juego
+	 */
 	private GameBoard board;
-	
+	/**
+	 * Construye la nave del jugador en función del argumento side e 
+	 * inicializará el atributo numFighters con el valor del argumento numFighters
+	 * @param side bando
+	 * @param numFighters numero de fighters
+	 */
 	public PlayerRandom(Side side, int numFighters) {
 		Objects.requireNonNull(side);
 		this.numFighters = numFighters;

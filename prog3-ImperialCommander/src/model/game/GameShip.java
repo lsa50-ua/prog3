@@ -13,11 +13,24 @@ import model.exceptions.FighterAlreadyInBoardException;
 import model.exceptions.FighterNotInBoardException;
 import model.exceptions.OutOfBoundsException;
 import model.game.exceptions.WrongFighterIdException;
-
+/**
+ * clase para gestionar una nave en el juego
+ * @author Luis Simón Albarrán 48804855M
+ *
+ */
 public class GameShip extends Ship{
+	/**
+	 * Constructor que lo único que debe hacer es llamar al constructor de la clase padre
+	 * @param name nombre
+	 * @param side bando
+	 */
 	public GameShip(String name, Side side) {
 		super(name, side);
 	}
+	/**
+	 * responde si esta la flota destruida
+	 * @return true o false
+	 */
 	public boolean isFleetDestroyed() {
 		boolean destruidos = true;
 		for(Fighter f: fleet) {
@@ -27,6 +40,12 @@ public class GameShip extends Ship{
 		}
 		return destruidos;
 	}
+	/**
+	 * Método privado que busca en la flota de la nave un caza cuyo identificador coincida con el argumento id.
+	 * @param id identificador
+	 * @return fighter buscado
+	 * @throws WrongFighterIdException si el id no coincide con ninguno se lanza
+	 */
 	private Fighter getFighter(int id) throws WrongFighterIdException {
 		Fighter buscado = null;
 		for(Fighter f: fleet) {
@@ -40,6 +59,11 @@ public class GameShip extends Ship{
 		}
 		return buscado;
 	}
+	/**
+	 * Devuelve una lista con los identificadores de los cazas (no destruidos) de la flota de la nave
+	 * @param where en fucion de lo que pases te pasa una lista de ids o otra
+	 * @return lista de ids buscada
+	 */
 	public List<Integer> getFightersId(String where){
 		List<Integer> ids = new ArrayList<>();
 		
@@ -68,15 +92,38 @@ public class GameShip extends Ship{
 		}
 		return ids;
 	}
+	/**
+	 * Obtiene el caza indicado por el argumento id y lo lanza al tablero b en la coordenada c
+	 * @param id identificador
+	 * @param c coordenada
+	 * @param b tablero
+	 * @throws FighterAlreadyInBoardException el fighter ya esta en el tablero
+	 * @throws OutOfBoundsException fuera de los limites del tablero
+	 * @throws WrongFighterIdException si el id no coincide con ninguno se lanza
+	 */
 	public void launch(int id, Coordinate c, Board b) throws FighterAlreadyInBoardException, OutOfBoundsException, WrongFighterIdException{
 		Objects.requireNonNull(c);
 		Objects.requireNonNull(b);
 		b.launch(c, getFighter(id));
 	}
+	/**
+	 * Obtiene el caza indicado por id y lo pone a patrullar en el tablero b
+	 * @param id identificador
+	 * @param b tablero
+	 * @throws FighterNotInBoardException fighter no esta en el board
+	 * @throws WrongFighterIdException si el id no coincide con ninguno se lanza
+	 */
 	public void patrol(int id, Board b) throws FighterNotInBoardException, WrongFighterIdException{
 		Objects.requireNonNull(b);
 		b.patrol(getFighter(id));
 	}
+	/**
+	 * Obtiene el caza indicado por id, lo quita del tablero  y se mejorará el caza
+	 * @param id identificador
+	 * @param qty cantidad
+	 * @param b tablero
+	 * @throws WrongFighterIdException si el id no coincide con ninguno se lanza
+	 */
 	public void improveFighter(int id, int qty, Board b) throws WrongFighterIdException {
 		Objects.requireNonNull(b);
 		Fighter f = getFighter(id);
