@@ -54,7 +54,6 @@ public class Game {
 			}
 			
 		}while(continuar == true && imperial.isFleetDestroyed() == false && rebel.isFleetDestroyed() == false);
-		
 		if(continuar == true) {
 			imperial.purgeFleet();
 			rebel.purgeFleet();

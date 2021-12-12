@@ -131,7 +131,6 @@ public class PlayerFile implements IPlayer {
 		}
 		
 		return continuar;
-		
 	}
 	
 }
