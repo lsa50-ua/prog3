@@ -113,19 +113,19 @@ public class PlayerFile implements IPlayer {
 							}
 						}
 					}catch(NoFighterAvailableException | FighterAlreadyInBoardException | OutOfBoundsException | WrongFighterIdException ex) {
-						System.out.println(ex);
+						System.out.println(ex.getMessage());
 					}
 					break;
 					
 				case "patrol":
-					if(trozos.length == 2) {
+					if(trozos.length != 2) {
+						System.out.println("ERROR: linea leida incorrecta");
+					}
+					else {
 						id = Integer.parseInt(trozos[1]);
 						try {
 							ship.patrol(id, board);
-						}catch(FighterNotInBoardException | WrongFighterIdException e) {System.out.println(e);}
-					}
-					else {
-						System.out.println("ERROR: linea leida incorrecta");
+						}catch(FighterNotInBoardException | WrongFighterIdException e) {System.out.println(e.getMessage());}
 					}
 					break;
 					
@@ -139,7 +139,7 @@ public class PlayerFile implements IPlayer {
 						if(qty < 100) {
 							try {
 								ship.improveFighter(id, qty, board);
-							}catch(WrongFighterIdException e) {System.out.println(e);}
+							}catch(WrongFighterIdException e) {System.out.println(e.getMessage());}
 							
 						}
 						else {
