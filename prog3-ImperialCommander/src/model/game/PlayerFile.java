@@ -2,6 +2,7 @@ package model.game;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Objects;
 
 import model.Coordinate;
 import model.Side;
@@ -17,14 +18,17 @@ public class PlayerFile implements IPlayer {
 	private GameBoard board;
 	
 	public PlayerFile(Side side, BufferedReader br) {
+		Objects.requireNonNull(side);
+		Objects.requireNonNull(br);
 		this.br = br;
 		ship = new GameShip("PlayerFile " + side + " Ship", side);
 		board = null;
 	}
 	
 	@Override
-	public void setBoard(GameBoard gb) {
-		board = gb;
+	public void setBoard(GameBoard g) {
+		Objects.requireNonNull(g);
+		board = g;
 		
 	}
 
@@ -36,7 +40,7 @@ public class PlayerFile implements IPlayer {
 	@Override
 	public void initFighters() {
 		try {
-		ship.addFighters(br.readLine());
+			ship.addFighters(br.readLine());
 		}catch(IOException e) {throw new RuntimeException(e);}
 	}
 
@@ -55,8 +59,7 @@ public class PlayerFile implements IPlayer {
 		ship.purgeFleet();
 		
 	}
-
-	@Override
+	
 	public boolean nextPlay() {
 		String linea = null;
 		String [] trozos;
@@ -64,73 +67,78 @@ public class PlayerFile implements IPlayer {
 		boolean continuar = true;
 		try {
 			linea = br.readLine();
-		}catch(IOException e) {throw new RuntimeException(e);}
-		if(linea == "exit") {
-			continuar = false;
-		}
-		else {
 			trozos = linea.split(" ");
-			if(trozos[0] == "improve") {
-				
-				if(trozos.length != 3) {
-					System.out.println("ERROR: linea leida incorrecta");
-				}
-				else {
-					id = Integer.parseInt(trozos[1]);
-					qty = Integer.parseInt(trozos[2]);
-					if(qty < 100) {
-						try {
-							ship.improveFighter(id, qty, board);
-						}catch(WrongFighterIdException e) {System.out.println(e);}
-						
-					}
-					else {
-						System.out.println("ERROR: qty no es menor que 100");
-					}
-				}
-			}
-			if(trozos[0] == "patrol") {
-				if(trozos.length == 2) {
-					id = Integer.parseInt(trozos[1]);
-					try {
-						ship.patrol(id, board);
-					}catch(FighterNotInBoardException | WrongFighterIdException e) {System.out.println(e);}
-				}
-				else {
-					System.out.println("ERROR: linea leida incorrecta");
-				}
-			}
-			if(trozos[0] == "launch") {
-				try {
-					if(trozos.length == 3) {
-						x = Integer.parseInt(trozos[1]);
-						y = Integer.parseInt(trozos[2]);
-						board.launch(new Coordinate(x, y), ship.getFirstAvailableFighter(""));
-					}
-					if(trozos.length == 4) {
-						x = Integer.parseInt(trozos[1]);
-						y = Integer.parseInt(trozos[2]);
-						try {
-							id = Integer.parseInt(trozos[3]);
-							ship.launch(id, new Coordinate(x, y), board);
-						}catch(NumberFormatException e) {
-							board.launch(new Coordinate(x,y), ship.getFirstAvailableFighter(trozos[3]));
-						}
-					}
-					else {
-						System.out.println("ERROR: linea leida incorrecta");
-					}
-						
-				}catch(NoFighterAvailableException | FighterAlreadyInBoardException | OutOfBoundsException | WrongFighterIdException ex) {
-						System.out.println(ex);
-				}
+			if(linea == "exit") {
+				continuar = false;
 			}
 			else {
-				System.out.println("ERROR: " + trozos[0] + " no coincide");
+				switch(trozos[0]) {
+				
+					case "launch":
+						try {
+							if(trozos.length == 3) {
+								x = Integer.parseInt(trozos[1]);
+								y = Integer.parseInt(trozos[2]);
+								board.launch(new Coordinate(x, y), ship.getFirstAvailableFighter(""));
+							}
+							else {
+								if(trozos.length == 4) {
+									x = Integer.parseInt(trozos[1]);
+									y = Integer.parseInt(trozos[2]);
+									try {
+										id = Integer.parseInt(trozos[3]);
+										ship.launch(id, new Coordinate(x, y), board);
+									}catch(NumberFormatException e) {
+										board.launch(new Coordinate(x,y), ship.getFirstAvailableFighter(trozos[3]));
+									}
+								}
+								else {
+									System.out.println("ERROR: linea leida incorrecta");
+								}
+							}
+						}catch(NoFighterAvailableException | FighterAlreadyInBoardException | OutOfBoundsException | WrongFighterIdException ex) {
+							System.out.println(ex);
+						}
+						break;
+						
+					case "patrol":
+						if(trozos.length == 2) {
+							id = Integer.parseInt(trozos[1]);
+							try {
+								ship.patrol(id, board);
+							}catch(FighterNotInBoardException | WrongFighterIdException e) {System.out.println(e);}
+						}
+						else {
+							System.out.println("ERROR: linea leida incorrecta");
+						}
+						break;
+						
+					case "improve":
+						if(trozos.length != 3) {
+							System.out.println("ERROR: linea leida incorrecta");
+						}
+						else {
+							id = Integer.parseInt(trozos[1]);
+							qty = Integer.parseInt(trozos[2]);
+							if(qty < 100) {
+								try {
+									ship.improveFighter(id, qty, board);
+								}catch(WrongFighterIdException e) {System.out.println(e);}
+								
+							}
+							else {
+								System.out.println("ERROR: qty no es menor que 100");
+							}
+						}
+						break;
+						
+					default:
+						System.out.println("ERROR: " + trozos[0] + " no coincide");
+				}
 			}
 		}
+		catch(IOException e) {throw new RuntimeException(e);}
 		
 		return continuar;
 	}
-	
 }

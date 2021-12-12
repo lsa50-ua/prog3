@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 import model.exceptions.FighterIsDestroyedException;
 
 /**
@@ -41,6 +43,7 @@ public abstract class Fighter {
 	 * @param mother asigna este valor al motherShip del caza
 	 */
 	protected Fighter(Ship mother){
+		Objects.requireNonNull(mother);
 		velocity = 100;
 		attack = 80;
 		shield = 80;
@@ -55,6 +58,7 @@ public abstract class Fighter {
 	 * @param f caza recibido
 	 */
 	protected Fighter(Fighter f) {
+		Objects.requireNonNull(f);
 		velocity = f.velocity;
 		attack = f.attack;
 		shield = f.shield;
@@ -180,6 +184,7 @@ public abstract class Fighter {
 	 * @return daño infligido por el caza al caza enemigo
 	 */
 	public int getDamage(int n,Fighter enemy) {
+		Objects.requireNonNull(enemy);
 		int damage = (n*attack)/300;
 		return damage;
 	}
@@ -204,6 +209,7 @@ public abstract class Fighter {
 	 * @return devuelve 1 si ha ganado el caza o -1 si ha ganado el enemigo
 	 */
 	public int fight(Fighter enemy) throws FighterIsDestroyedException{
+		Objects.requireNonNull(enemy);
 		int pelea, n;
 		if(enemy.isDestroyed()) {
 			throw new FighterIsDestroyedException(enemy);

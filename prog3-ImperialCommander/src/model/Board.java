@@ -88,7 +88,6 @@ public class Board {
 	 * @return Devuelve true si la coordenada está dentro del tablero, y false en otro caso
 	 */
 	public boolean inside(Coordinate c) {
-		Objects.requireNonNull(c);
 		boolean dentro = false;
 		if(c != null) {
 			if(c.getX() >= 0 && c.getX() <= (size - 1) && c.getY() >= 0 &&  c.getY() <= (size - 1)) {

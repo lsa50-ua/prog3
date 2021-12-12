@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import model.exceptions.NoFighterAvailableException;
 /**
  * Esta clase permite gestionar naves imperiales o rebeldes
@@ -35,6 +37,8 @@ public class Ship {
 	 * @param side el side se inicializa con este parametro
 	 */
 	public Ship(String name, Side side){
+		Objects.requireNonNull(name);
+		Objects.requireNonNull(side);
 		this.name = name;
 		this.side = side;
 		wins = 0;
@@ -78,6 +82,7 @@ public class Ship {
 	 * @param fd string donde indica los cazas a construir
 	 */
 	public void addFighters(String fd) {
+		Objects.requireNonNull(fd);
 		int cantidad;
 		Fighter f;
 		String trozos[];
@@ -130,6 +135,7 @@ public class Ship {
 	 * @return el primer caza no destruido
 	 */
 	public Fighter getFirstAvailableFighter(String type) throws NoFighterAvailableException{
+		Objects.requireNonNull(type);
 		Fighter firstAvailable = null;
 		if(type == "") {
 			for(Fighter f: fleet) {

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 import model.fighters.AWing;
 import model.fighters.TIEBomber;
 import model.fighters.TIEFighter;
@@ -19,6 +21,8 @@ public class FighterFactory {
 	 * @return devuelve el caza del tipo especificado y lo mete en la nave especificada.
 	 */
 	public static Fighter createFighter(String type, Ship mother) {
+		Objects.requireNonNull(type);
+		Objects.requireNonNull(mother);
 		Fighter f = null;
 		switch(type) {
 			case "AWing":

@@ -2,6 +2,7 @@ package model.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import model.Board;
 import model.Coordinate;
@@ -68,12 +69,16 @@ public class GameShip extends Ship{
 		return ids;
 	}
 	public void launch(int id, Coordinate c, Board b) throws FighterAlreadyInBoardException, OutOfBoundsException, WrongFighterIdException{
+		Objects.requireNonNull(c);
+		Objects.requireNonNull(b);
 		b.launch(c, getFighter(id));
 	}
 	public void patrol(int id, Board b) throws FighterNotInBoardException, WrongFighterIdException{
+		Objects.requireNonNull(b);
 		b.patrol(getFighter(id));
 	}
 	public void improveFighter(int id, int qty, Board b) throws WrongFighterIdException {
+		Objects.requireNonNull(b);
 		Fighter f = getFighter(id);
 		try {
 			b.removeFighter(f);
