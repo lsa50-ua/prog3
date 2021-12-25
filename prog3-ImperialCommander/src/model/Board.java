@@ -152,6 +152,7 @@ public class Board {
 					f.getMotherShip().updateResults(batalla);
 					enemy.getMotherShip().updateResults(-1);
 					board.put(c, f);
+					f.setPosition(c);
 					enemy.setPosition(null);
 				}
 				else {
