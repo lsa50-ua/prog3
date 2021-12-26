@@ -6,6 +6,13 @@ import model.Side;
  * @author Luis Simón Albarrán 48804855M
  *
  */
+
+/**
+ * clase abstracta Score que encapsula el concepto de la puntuación de una partida
+ * @author Luis Simón Albarrán 48804855M
+ *
+ * @param <T> tipo
+ */
 public abstract class Score<T> implements Comparable<Score<T>> {
 	/**
 	 * puntuacion

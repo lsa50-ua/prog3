@@ -257,6 +257,10 @@ public abstract class Fighter {
 		}
 		return true;
 	}
+	/**
+	 * devuelve el valor del caza
+	 * @return valor
+	 */
 	public int getValue() {
 		int valor = velocity + attack;
 		return valor;

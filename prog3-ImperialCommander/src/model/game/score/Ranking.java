@@ -3,10 +3,13 @@ package model.game.score;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+
 /**
+ * 
  * sistema de clasificación basado en las puntuaciones obtenidas por los diferentes jugadores
  * @author Luis Simón Albarrán 48804855M
  *
+ * @param <ScoreType> tipo
  */
 public class Ranking<ScoreType extends Score<?>> {
 	/**
