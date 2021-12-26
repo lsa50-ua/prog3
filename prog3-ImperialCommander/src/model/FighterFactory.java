@@ -1,13 +1,8 @@
 package model;
 
+import java.lang.reflect.Constructor;
 import java.util.Objects;
 
-import model.fighters.AWing;
-import model.fighters.TIEBomber;
-import model.fighters.TIEFighter;
-import model.fighters.TIEInterceptor;
-import model.fighters.XWing;
-import model.fighters.YWing;
 /**
  * Clase que representa la fabrica de cazas
  * @author Luis Simón Albarrán 48804855M
@@ -20,9 +15,19 @@ public class FighterFactory {
 	 * @param mother Indica la nave
 	 * @return devuelve el caza del tipo especificado y lo mete en la nave especificada.
 	 */
+	
 	public static Fighter createFighter(String type, Ship mother) {
 		Objects.requireNonNull(type);
 		Objects.requireNonNull(mother);
+		try {
+			Class<?> c = Class.forName("model.fighters." + type);
+			Constructor<?> m = c.getConstructor(Ship.class);
+			return (Fighter) m.newInstance(mother);
+			
+		} catch(Exception e) { 
+			return null;
+		}
+		/*
 		Fighter f = null;
 		switch(type) {
 			case "AWing":
@@ -45,5 +50,8 @@ public class FighterFactory {
 				break;
 		}
 		return f;
+		*/
+		
 	}
+	
 }

@@ -257,6 +257,10 @@ public abstract class Fighter {
 		}
 		return true;
 	}
+	public int getValue() {
+		int valor = velocity + attack;
+		return valor;
+	}
 	/**
 	 * Metodo copy
 	 * @return devuelve un objeto de la subclase obtenido del constructor copia.

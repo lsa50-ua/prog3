@@ -149,15 +149,15 @@ public class Board {
 					throw new RuntimeException(destroyed);
 				}
 				if(batalla == 1) {
-					f.getMotherShip().updateResults(batalla);
-					enemy.getMotherShip().updateResults(-1);
+					f.getMotherShip().updateResults(batalla, enemy);
+					enemy.getMotherShip().updateResults(-1, null);
 					board.put(c, f);
 					f.setPosition(c);
 					enemy.setPosition(null);
 				}
 				else {
-					enemy.getMotherShip().updateResults(1);
-					f.getMotherShip().updateResults(batalla);						
+					enemy.getMotherShip().updateResults(1, f);
+					f.getMotherShip().updateResults(batalla, null);						
 				}
 			}
 		}
@@ -212,14 +212,14 @@ public class Board {
 							throw new RuntimeException(destroyed);
 						}
 						if(batalla == 1) {
-							f.getMotherShip().updateResults(batalla);
-							enemy.getMotherShip().updateResults(-1);
+							f.getMotherShip().updateResults(batalla, enemy);
+							enemy.getMotherShip().updateResults(-1, null);
 							board.remove(enemy.getPosition());
 							enemy.setPosition(null);
 						}
 						else {
-							enemy.getMotherShip().updateResults(1);
-							f.getMotherShip().updateResults(batalla);
+							enemy.getMotherShip().updateResults(1, f);
+							f.getMotherShip().updateResults(batalla, null);
 							board.remove(f.getPosition());
 							f.setPosition(null);
 						}

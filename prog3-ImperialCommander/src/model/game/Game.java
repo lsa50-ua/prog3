@@ -4,6 +4,9 @@ import java.util.Objects;
 
 import model.Side;
 import model.exceptions.InvalidSizeException;
+import model.game.score.DestroyedFightersScore;
+import model.game.score.Ranking;
+import model.game.score.WinsScore;
 /**
  * Esta clase gestiona una partida entre dos jugadores, uno imperial y otro rebelde
  * @author Luis Simón Albarrán 48804855M
@@ -51,6 +54,25 @@ public class Game {
 		return board;
 	}
 	/**
+	 * metodo auxiliar para el metodo play
+	 */
+	private void showRankings() {
+		Ranking<WinsScore> rw;
+		Ranking<DestroyedFightersScore> rd;
+		
+		rw = new Ranking<>();
+		rd = new Ranking<>();
+		
+		rw.addScore(imperial.getWinsScore());
+		rw.addScore(rebel.getWinsScore());
+		
+		rd.addScore(imperial.getDestroyedFightersScore());
+		rd.addScore(rebel.getDestroyedFightersScore());
+		
+		System.out.println("RANKING WINS: " + rw);
+		System.out.println("RANKING DESTROYED: " + rd);
+	}
+	/**
 	 * metodo para jugar 
 	 * @return el bando ganador
 	 */
@@ -61,6 +83,7 @@ public class Game {
 		rebel.initFighters();
 		
 		do {
+			showRankings();
 			System.out.println("BEFORE IMPERIAL\n" + board);
 			System.out.println();
 			System.out.println(imperial.showShip() + "\n" + rebel.showShip());
@@ -93,6 +116,7 @@ public class Game {
 		
 		imperial.purgeFleet();
 		rebel.purgeFleet();
+		showRankings();
 		if(continuar == true) {
 
 			if(imperial.isFleetDestroyed()) {

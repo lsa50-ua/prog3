@@ -1,5 +1,8 @@
 package model.game;
 
+import model.game.score.DestroyedFightersScore;
+import model.game.score.WinsScore;
+
 /**
  * Interfaz que modela un jugador del juego, que contiene los métodos necesarios para jugar.
  * @author Luis Simón Albarrán 48804855M
@@ -40,4 +43,14 @@ public interface IPlayer {
 	 * @return si continua o no
 	 */
 	boolean nextPlay();
+	/**
+	 * getter score wins
+	 * @return puntuacion de victorias
+	 */
+	WinsScore getWinsScore();
+	/**
+	 * getter cazas destruidos
+	 * @return puntuacion de cazas destruidos
+	 */
+	DestroyedFightersScore getDestroyedFightersScore();
 }

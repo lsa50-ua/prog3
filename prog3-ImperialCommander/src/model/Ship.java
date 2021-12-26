@@ -117,8 +117,9 @@ public class Ship {
 	/**
 	 * actualiza los valores de wins o losses en función del valor del argumento r
 	 * @param r depende de este se pondra win or loss
+	 * @param f caza destruido
 	 */
-	public void updateResults(int r) {
+	public void updateResults(int r, Fighter f) {
 		if(r == 1) {
 			wins ++;
 		}

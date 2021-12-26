@@ -11,6 +11,8 @@ import model.exceptions.FighterNotInBoardException;
 import model.exceptions.NoFighterAvailableException;
 import model.exceptions.OutOfBoundsException;
 import model.game.exceptions.WrongFighterIdException;
+import model.game.score.DestroyedFightersScore;
+import model.game.score.WinsScore;
 /**
  * Esta clase permite leer los movimientos de un jugador desde un fichero
  * @author Luis Simón Albarrán 48804855M
@@ -156,5 +158,22 @@ public class PlayerFile implements IPlayer {
 		catch(IOException e) {throw new RuntimeException(e);}
 		
 		return continuar;
+	}
+	/**
+	 * wins
+	 * @return winsScore
+	 */
+	@Override
+	public WinsScore getWinsScore() {
+		
+		return ship.getWinsScore();
+	}
+	/**
+	 * destroyeds
+	 * @return fightersDestroyedScore
+	 */
+	@Override
+	public DestroyedFightersScore getDestroyedFightersScore() {
+		return ship.getDestroyedFightersScore();
 	}
 }

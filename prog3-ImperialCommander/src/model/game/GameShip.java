@@ -13,6 +13,8 @@ import model.exceptions.FighterAlreadyInBoardException;
 import model.exceptions.FighterNotInBoardException;
 import model.exceptions.OutOfBoundsException;
 import model.game.exceptions.WrongFighterIdException;
+import model.game.score.DestroyedFightersScore;
+import model.game.score.WinsScore;
 /**
  * clase para gestionar una nave en el juego
  * @author Luis Simón Albarrán 48804855M
@@ -20,12 +22,48 @@ import model.game.exceptions.WrongFighterIdException;
  */
 public class GameShip extends Ship{
 	/**
+	 * Puntuacion de victorias
+	 */
+	private WinsScore winsScore;
+	/**
+	 * Puntuacion de fighters destruidos
+	 */
+	private DestroyedFightersScore destroyedFightersScore;
+	/**
+	 * Puntuacion de victorias
+	 * @return the winsScore
+	 */
+	public WinsScore getWinsScore() {
+		return winsScore;
+	}
+	/**
+	 * Puntuacion de fighters destruidos
+	 * @return the destroyedFightersScore
+	 */
+	public DestroyedFightersScore getDestroyedFightersScore() {
+		return destroyedFightersScore;
+	}
+	/**
 	 * Constructor que lo único que debe hacer es llamar al constructor de la clase padre
 	 * @param name nombre
 	 * @param side bando
 	 */
 	public GameShip(String name, Side side) {
 		super(name, side);
+		winsScore = new WinsScore(side);
+		destroyedFightersScore = new DestroyedFightersScore(side);
+	}
+	/**
+	 * Actualiza los resultados y cuando el resultado sea 1, debe actualizar las puntuaciones llamando al método score para cada una de ellas
+	 * @param r resultado
+	 * @param f fighter destruido
+	 */
+	public void updateResults(int r, Fighter f) {
+		super.updateResults(r, f);
+		if(r == 1) {
+			winsScore.score(r);
+			destroyedFightersScore.score(f);
+		}
 	}
 	/**
 	 * responde si esta la flota destruida

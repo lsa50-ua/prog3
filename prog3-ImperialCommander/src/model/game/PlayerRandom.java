@@ -8,6 +8,8 @@ import model.RandomNumber;
 import model.Side;
 import model.exceptions.*;
 import model.game.exceptions.WrongFighterIdException;
+import model.game.score.DestroyedFightersScore;
+import model.game.score.WinsScore;
 /**
  * Es una clase para simular un jugador que juega al azar.
  * @author Luis Simón Albarrán 48804855M
@@ -152,5 +154,21 @@ public class PlayerRandom implements IPlayer{
 		}
 		
 		return continuar;
+	}
+	/**
+	 * wins
+	 * @return winsScore
+	 */
+	@Override
+	public WinsScore getWinsScore() {
+		return ship.getWinsScore();
+	}
+	/**
+	 * destroyeds
+	 * @return fightersDestroyedScore
+	 */
+	@Override
+	public DestroyedFightersScore getDestroyedFightersScore() {
+		return ship.getDestroyedFightersScore();
 	}
 }
